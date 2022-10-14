@@ -47,14 +47,21 @@
             @foreach ($property as $properties)
             <div class="col-lg-4">
               <div class="card mb-4 shadow-sm">
-                <a href="{{route('home.single', $properties->id)}}" style="text-decoration: none;" class="text-dark">
+                <a href="
+                @if(auth()->user())
+                {{route('home.single', $properties->id)}}
+                @else
+                /login
+                @endif
+                " style="text-decoration: none;" class="text-dark">
                 <img class="card-img-top" src="{{$properties->featured_image}}" alt="Card image cap">
                 <div class="card-body">
                   <h6 class="card-title">{{Str::limit($properties->title, '22', '...')}}</h6>
-                  <p class="card-subtitle mb-2 text-muted" style="font-size:16px">by : {{$properties->user->name}}</p>
-                </div>
+                  <p class="card-subtitle mb-2 text-muted" style="font-size:16px">at : {{$properties->location->name}}</p>
+                  <p class="card-subtitle mb-2 text-muted" style="font-size:16px"> <span class="badge rounded-pill bg-primary">{{$properties->category->name}}</span></p>
+                </div> 
                 <div class="card-footer text-muted">
-                  &#8358;{{$properties->amount}}
+                  &#8358;{{ number_format($properties->amount, 2, ',', '.') }}
                 </div>
                 </a>
               </div>
@@ -78,7 +85,7 @@
         <div class="col-md-3">
   
           <!-- Search Widget -->
-          <div class="card my-4">
+          <div class="card my-4" id="category">
             <h5 class="card-header">Search</h5>
             <div class="card-body">
               <div class="input-group">
@@ -104,11 +111,18 @@
                     @endforeach
                   </ul>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="card my-4">
+            <h5 class="card-header">Locations</h5>
+            <div class="card-body">
+              <div class="row">
                 <div class="col-lg-6">
                   <ul class="list-unstyled mb-0">
                     @foreach ($location as $locations)
                     <li>
-                      <a href="#">{{$locations->name}}</a>
+                      <a href="{{route('home.location', $locations->id)}}">{{$locations->name}}</a>
                     </li>
                     @endforeach
                   </ul>

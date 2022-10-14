@@ -98,7 +98,7 @@
                     </form>
 
                 </div>
-                
+                @if(auth()->user()->userHasRole('Admin'))
                     <div class="card shadow mb-4">
                         <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Role</h6></div>
                         <div class="card-body">
@@ -162,7 +162,46 @@
                         </div>
                        
                     </div>
-                
+                    @else
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Role</h6></div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Options</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($roles as $role)
+                                            
+                                        <tr>
+                                            <td><input type="checkbox"
+                                                @foreach ($user->roles as $user_role)
+                                                    @if ($user_role->name == $role->name)
+                                                        checked
+                                                    @endif
+                                                @endforeach
+                                                ></td>
+                                            <td>{{$role->name}}</td>
+                                           
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Options</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    @endif
                 <div class="my-5">&nbsp;</div>
             </div>
         </div>

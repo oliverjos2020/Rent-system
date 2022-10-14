@@ -8,14 +8,18 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/listing', [App\Http\Controllers\HomeController::class, 'listing'])->name('home.listing');
 Route::get('/listing/{id}/property', [App\Http\Controllers\HomeController::class, 'view'])->name('home.single');
 Route::get('/listing/{id}/sort', [App\Http\Controllers\HomeController::class, 'sort'])->name('home.sort');
+Route::get('/location/{id}', [App\Http\Controllers\HomeController::class, 'location'])->name('home.location');
+
 
 Route::middleware(['auth'])->group(function () {
     
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
 Route::put('/dashboard/{user}/profile/update', [App\Http\Controllers\DashboardController::class, 'update'])->name('dashboard.profile.update');
-
-
+Route::get('/dashboard/{user}/biodata', [App\Http\Controllers\BiodataController::class, 'index'])->name('dashboard.biodata');
+Route::post('/dashboard/biodata/store', [App\Http\Controllers\BiodataController::class, 'create'])->name('dashboard.biodata.store');
+Route::get('/dashboard/{user}/edit', [App\Http\Controllers\BiodataController::class, 'edit'])->name('dashboard.biodata.edit');
+Route::put('/dashboard/{biodata}/biodata/update', [App\Http\Controllers\BiodataController::class, 'update'])->name('dashboard.biodata.update');
 
 });
 

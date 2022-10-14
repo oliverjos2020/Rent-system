@@ -26,7 +26,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(){
-        $property = Property::paginate(6);
+        $property = Property::paginate(9);
         $category = Category::all();
         $location = Location::all();
         
@@ -61,6 +61,19 @@ class HomeController extends Controller
         return view('home.sort-category', [
             'property'=>$property,
             'categoryname'=>$categoryname,
+            'category'=>$category,
+            'location'=>$location
+        ]);
+    }
+
+    public function location($id){
+        $property = Property::where('location_id', $id)->paginate(12);
+        $title = Location::findOrFail($id);
+        $category = Category::all();
+        $location = Location::all();
+        return view('home.location', [
+            'property'=>$property,
+            'title'=>$title,
             'category'=>$category,
             'location'=>$location
         ]);

@@ -4,13 +4,13 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
-	<link href="{{asset('css/bootstrap.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+	<link href="{{asset('css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
 </head>
-<body style="background:ghostwhite;">
+<body style="background:white;">
 
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{route('home')}}">RentApp</a>
+    <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('img/logo.png')}}" style="max-height:50px;"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,17 +41,14 @@
         </form>
         </li>
         @else
-
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('home')}}">Home</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-         
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#category">Category</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('home.listing')}}">Listings</a>

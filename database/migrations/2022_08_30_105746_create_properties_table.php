@@ -20,7 +20,7 @@ class CreatePropertiesTable extends Migration
             $table->string('short_description');
             $table->text('description');
             $table->integer('category_id')->unsigned()->index();
-            $table->string('location');
+            $table->integer('location_id')->unsigned()->index();
             $table->integer('amount');
             $table->string('featured');
             $table->string('featured_image');

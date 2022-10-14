@@ -112,7 +112,7 @@
 					</li>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{route('dashboard.profile', auth()->user())}}">
-							<i class="align-middle mr-2 far fa-fw fa-calendar-alt"></i> <span class="align-middle">Profile</span>
+							<i class="align-middle mr-2 fas fa-fw fa-user-alt"></i> <span class="align-middle">Profile</span>
 						</a>
 					</li>
 

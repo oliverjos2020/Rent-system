@@ -86,7 +86,7 @@
                                     <label for="Location">Location <span class="text-danger">*</span></label>
                                     <select name="location" id="location" class="form-control">
                                         @foreach ($location as $locations)
-                                        <option value="{{$locations->name}}">{{$locations->name}}</option>
+                                        <option value="{{$locations->id}}">{{$locations->name}}</option>
                                         @endforeach
                                         @error('location')
                                         <div class="invalid-feedback">{{$message}}</div>                                        

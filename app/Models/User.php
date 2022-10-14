@@ -58,6 +58,10 @@ class User extends Authenticatable
         
         return $this->belongsToMany(Role::class);
     }
+    public function biodatas(){
+        
+        return $this->hasOne(Biodata::class);
+    }
 
     public function userHasRole($role_name){
 

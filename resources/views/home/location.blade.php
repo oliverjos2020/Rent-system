@@ -3,8 +3,7 @@
     <div class="container-fluid" style="background-image:url({{asset('images/bg-background.jpg')}}); background-size:cover; background-position:center; padding:80px;">
         <div class="row">
           <div class="mb-3" style="margin-top: 0px;">
-            <h1 class="my-3 text-center" style="background:#6d7075mm; padding:10px; font-family:futura md bt; font-weight:bold; color:rgb(255, 255, 255); text-transform:uppercase;"><strong class="fw-bold text-light">Listings</strong></h1>
-            <p class="text-center fw-bold text-light">Your Property, Our Priority and From as low as 50k per year with limited time offer discounts</p>
+            <h1 class="my-3 text-center" style="background:#6d7075mm; padding:10px; font-family:futura md bt; font-weight:bold; color:rgb(255, 255, 255); text-transform:uppercase;"><strong class="fw-bold text-light">{{$title->name}}</strong></h1>
           </div>
         </div>
       </div>
@@ -19,7 +18,7 @@
       
               <!-- Blog Post -->
               <div class="row">
-                @foreach ($property as $properties)
+                @forelse ($property as $properties)
                 <div class="col-lg-4">
                   <div class="card mb-4 shadow-sm">
                     <a href="
@@ -41,7 +40,10 @@
                     </a>
                   </div>
                 </div>
-                @endforeach
+
+                @empty
+                <div class="alert alert-danger">No record found</div>
+                @endforelse
               </div>
       
               <!-- Pagination -->
@@ -90,7 +92,7 @@
                       <ul class="list-unstyled mb-0">
                         @foreach ($location as $locations)
                         <li>
-                          <a href="{{route('home.location', $locations->id)}}">{{$locations->name}}</a>
+                            <a href="{{route('home.location', $locations->id)}}">{{$locations->name}}</a>
                         </li>
                         @endforeach
                       </ul>
@@ -107,7 +109,7 @@
                 </div>
               </div>
       
-            </div>
+            </div> 
       
           </div>
           <!-- /.row -->

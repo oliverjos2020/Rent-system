@@ -102,7 +102,7 @@
                                         @if($property->location==$locations->name)
 
                                         @else
-                                        <option value="{{$locations->name}}">{{$locations->name}}</option>
+                                        <option value="{{$locations->id}}">{{$locations->name}}</option>
                                         @endif
 
                                         @endforeach

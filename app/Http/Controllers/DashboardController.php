@@ -6,18 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Property;
+use App\Models\Biodata;
 use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
     public function index(){
+        $user = auth()->user()->id;
         $property = Property::all();
+        if(Biodata::where('user_id', $user)->exists()){
+            Session::flash('exist', 'You have completed your biodata');
+        }else{
+            Session::flash('not-exist', 'You have not completed your biodata');
+        }
         return view('dashboard.index', ['property'=>$property]);
     }
 
     public function show(User $user){
         return view('dashboard.profile', ['user'=>$user, 'roles'=>Role::all()]);
     }
-
+ 
     public function update(User $user){
 
         $input = request()->validate([
@@ -45,4 +52,5 @@ class DashboardController extends Controller
         $user->update($input);
         return back();
     }
+
 }
