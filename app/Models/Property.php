@@ -33,5 +33,8 @@ class Property extends Model
     public function location(){
         return $this->belongsTo(Location::class);
     }
+    public function cart(){
+        return $this->belongsTo(Cart::class);
+    }
     
 }

@@ -95,9 +95,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="Location">Location: <span class="text-primary">{{$property->location}}</span></label>
-                                    <select name="location" id="location" class="form-control">
-                                        <option value="{{$property->location}}">{{$property->location}}</option>
+                                    <label for="Location">Location: <span class="text-primary">{{$property->location->name}}</span></label>
+                                    <select name="location_id" id="location" class="form-control">
+                                        <option value="{{$property->location->name}}">{{$property->location->name}}</option>
                                         @foreach ($location as $locations)
                                         @if($property->location==$locations->name)
 
@@ -106,7 +106,7 @@
                                         @endif
 
                                         @endforeach
-                                        @error('location')
+                                        @error('location_id')
                                         <div class="invalid-feedback">{{$message}}</div>                                        
                                     @enderror
                                     </select>
@@ -133,6 +133,22 @@
                                     <div class="invalid-feedback">{{$message}}</div>                                        
                                 @enderror
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="offer">Offer: <span class="text-primary">{{$property->offer==1 ? 'Open' : 'Closed'}}</span></label>
+                                     <select name="offer" id="offer" class="form-control">
+                                         @if($property->offer==1)
+                                         <option value="1">Open</option>
+                                         <option value="0">Closed</option>
+                                         @else
+                                         <option value="0">Closed</option>
+                                         <option value="1">Open</option>
+                                         @endif
+                                     </select>
+                                     @error('offer')
+                                     <div class="invalid-feedback">{{$message}}</div>                                        
+                                 @enderror
+                                 </div>
                                 
                             </div>
                             <div class="col-md-4">

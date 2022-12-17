@@ -62,6 +62,10 @@ class User extends Authenticatable
         
         return $this->hasOne(Biodata::class);
     }
+    public function carts(){
+        
+        return $this->hasMany(Cart::class);
+    }
 
     public function userHasRole($role_name){
 

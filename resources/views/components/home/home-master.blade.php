@@ -5,77 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<link href="{{asset('css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+  <link href="{{asset('font-awesome/css/font-awesome.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
 </head>
 <body style="background:white;">
 
-<nav class="navbar navbar-expand-lg sticky-top shadow-sm navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('img/logo.png')}}" style="max-height:50px;"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @if(Auth::check())
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{route('dashboard.index')}}">Dashboard</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('home.listing')}}">Listings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ">Partner</a>
-        </li>
-        <li class="nav-item">
-          <form action="/logout" method="post">
-          @csrf
-            <button type="submit" class="btn btn-outline-dark">Logout</button>
-        </form>
-        </li>
-        @else
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('home')}}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#category">Category</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('home.listing')}}">Listings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ">Partner</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        @endif
-
-       
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-
-
-  
 
 {{-- <div class="container">
   <div class="row">
@@ -93,7 +26,7 @@
 
 <nav class="navbar sticky-bottom navbar-light bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand text-center text-light" href="#">&copy;Oliver's Concept 2022</a>
+    <h6 class="text-center text-light my-2">&copy; Oliver's Concept 2022</h6>
   </div>
 </nav>
 

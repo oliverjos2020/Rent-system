@@ -13,8 +13,8 @@ class AddOfferToPropertyTable extends Migration
      */
     public function up()
     {
-        Schema::table('Property', function (Blueprint $table) {
-            //
+        Schema::table('Properties', function (Blueprint $table) {
+            $table->integer('offer');
         });
     }
 

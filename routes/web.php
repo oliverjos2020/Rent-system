@@ -16,10 +16,16 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
 Route::put('/dashboard/{user}/profile/update', [App\Http\Controllers\DashboardController::class, 'update'])->name('dashboard.profile.update');
+
 Route::get('/dashboard/{user}/biodata', [App\Http\Controllers\BiodataController::class, 'index'])->name('dashboard.biodata');
 Route::post('/dashboard/biodata/store', [App\Http\Controllers\BiodataController::class, 'create'])->name('dashboard.biodata.store');
-Route::get('/dashboard/{user}/edit', [App\Http\Controllers\BiodataController::class, 'edit'])->name('dashboard.biodata.edit');
+Route::get('/dashboard/{user}/biodata/edit', [App\Http\Controllers\BiodataController::class, 'edit'])->name('dashboard.biodata.edit');
 Route::put('/dashboard/{biodata}/biodata/update', [App\Http\Controllers\BiodataController::class, 'update'])->name('dashboard.biodata.update');
+
+Route::post('/cart/store', [App\Http\Controllers\CartController::class, 'create'])->name('cart.store');
+Route::delete('/cart/{cart}/destroy', [App\Http\Controllers\CartController::class, 'delete'])->name('cart.destroy');
+Route::delete('/cart/{cart}/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::class, 'view'])->name('cart.view');
 
 });
 

@@ -35,7 +35,7 @@
                     </thead>
                     <tbody>
                         @foreach ($property as $properties)
-                            
+                             
                         <tr>
                             <td>{{$properties->id}}</td>
                             <td><img src="{{$properties->featured_image ? $properties->featured_image : 'avatar.png'}}" height="50px" alt=""></td>

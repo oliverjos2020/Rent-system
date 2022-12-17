@@ -27,9 +27,10 @@ class PropertyController extends Controller
             'short_description' => ['required','string','min:15','max:255'],
             'description' => ['required','string','min:15'],
             'category_id' => 'required',
-            'location' => 'required',
+            'location_id' => 'required',
             'amount' => 'required',
             'featured' => 'required',
+            'offer' => 'required',
             'featured_image' => ['file:jpg,jpeg,png,bmp']
         ]);
 
@@ -81,11 +82,12 @@ class PropertyController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'short_description' => ['required','string','min:15'],
-            'description' => ['required','string','min:15','max:255'],
+            'description' => ['required','string','min:15'],
             'category_id' => 'required',
-            'location' => 'required',
+            'location_id' => 'required',
             'amount' => 'required',
             'featured' => 'required',
+            'offer' => 'required',
             'featured_image' => ['file:jpg,jpeg,png,bmp']
         ]);
         //$newProperty = Property::create($data);

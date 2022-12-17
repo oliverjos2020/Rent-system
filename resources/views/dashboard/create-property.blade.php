@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Location">Location <span class="text-danger">*</span></label>
-                                    <select name="location" id="location" class="form-control">
+                                    <select name="location_id" id="location" class="form-control">
                                         @foreach ($location as $locations)
                                         <option value="{{$locations->id}}">{{$locations->name}}</option>
                                         @endforeach
@@ -105,6 +105,14 @@
                                     <select name="featured" id="featured" class="form-control">
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="offer">Offer</label>
+                                    <select name="offer" id="offer" class="form-control">
+                                        <option value="1">Open</option>
+                                        <option value="0">Closed</option>
                                     </select>
                                 </div>
                                 

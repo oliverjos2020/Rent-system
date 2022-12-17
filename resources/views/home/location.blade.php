@@ -1,5 +1,93 @@
 <x-home.home-master>
     @section('content')
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('img/logo.png')}}" style="max-height:50px;"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            @if(Auth::check())
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('home')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{route('dashboard.index')}}">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('home.listing')}}">Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ">Partner</a>
+            </li>
+            <li class="nav-item">
+              <form action="/logout" method="post">
+              @csrf
+                <button type="submit" class="btn btn-outline-dark">Logout</button>
+            </form>
+            </li>
+            @else
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('home')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#category">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('home.listing')}}">Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ">Partner</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+            @endif
+    
+           
+          </ul>
+          <button type="button" class="btn btn-primary position-relative">
+            <i class="fa fa-cart-plus"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              
+              @forelse ($cart as $carts)
+                @if(Auth::check())
+                  @if ($carts->user_id == Auth()->user()->id)
+                  {{$carts->count()}}
+                  @else
+                  0
+                  @endif
+                @else
+                  0
+                @endif
+              @empty
+              0
+              @endforelse
+              
+            </span>
+          </button>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
     <div class="container-fluid" style="background-image:url({{asset('images/bg-background.jpg')}}); background-size:cover; background-position:center; padding:80px;">
         <div class="row">
           <div class="mb-3" style="margin-top: 0px;">
@@ -35,7 +123,7 @@
                       <p class="card-subtitle mb-2 text-muted" style="font-size:16px"> <span class="badge rounded-pill bg-primary">{{$properties->category->name}}</span></p>
                     </div>
                     <div class="card-footer text-muted">
-                      &#8358;{{ number_format($properties->amount, 2, ',', '.') }}
+                      &#8358;{{ number_format($properties->amount, 2, ',', '.') }} &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-primary">Offer: <span class="">{{$properties->offer==1 ? 'Open' : 'Closed'}}</span></button>
                     </div>
                     </a>
                   </div>
