@@ -91,6 +91,19 @@
 
     <div class="container">
         <div class="row" style="margin-top: 50px">
+          @if(session()->has('cart-created'))
+              <div class="alert alert-success">
+                {{session('cart-created')}}
+            </div>
+              @elseif (session()->has('cart-deleted'))
+              <div class="alert alert-danger">
+                {{session('cart-deleted')}}
+            </div>
+            @elseif (session()->has('inspection-created'))
+              <div class="alert alert-success">
+                {{session('inspection-created')}} <a href="{{route('inspection.view', Auth()->User())}}" class="btn btn-success position-relative">Proceed to payment <i class="fa fa-credit-card"></i></a>
+            </div>
+              @endif
             <div class="col-md-8 my-4 container">
                 <div class="row">
                     <div>
@@ -154,15 +167,7 @@
           <div class="card my-4">
             <h5 class="card-header">Cart</h5>
             <div class="card-body">
-              @if(session()->has('cart-created'))
-              <div class="alert alert-success">
-                {{session('cart-created')}}
-            </div>
-              @elseif (session()->has('cart-deleted'))
-              <div class="alert alert-danger">
-                {{session('cart-deleted')}}
-            </div>
-              @endif
+              
 
               @forelse ($cartbtn as $carts)
               @if($property->id == $carts->property_id)
@@ -266,8 +271,21 @@
                     <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
                     <input type="hidden" name="payment" class="form-control" value="0">
                     <input type="hidden" name="amount" class="form-control" value="5000">
-                    <button class="btn btn-primary position-relative" type="submit">Pay for inspection
+                  @forelse($inspectionbtn as $inspection)
+                  @if($property->id == $inspection->property_id)
+                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment <i class="fa fa-credit-card"></i>
+                  </button> --}}
+                  <a href="{{route('inspection.view', Auth()->User())}}" class="btn btn-success position-relative">Proceed to payment <i class="fa fa-credit-card"></i></a>
+                  @else
+                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment
+                  </button> --}}
+                  @endif
+                  @empty
+                  <button class="btn btn-primary position-relative" type="submit">Pay for inspection
                   </button>
+                  @endforelse
+                    
+                    
 
                 </form>
             </div>

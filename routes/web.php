@@ -6,12 +6,13 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/listing', [App\Http\Controllers\HomeController::class, 'listing'])->name('home.listing');
-Route::get('/listing/{id}/property', [App\Http\Controllers\HomeController::class, 'view'])->name('home.single');
-Route::get('/listing/{id}/sort', [App\Http\Controllers\HomeController::class, 'sort'])->name('home.sort');
-Route::get('/location/{id}', [App\Http\Controllers\HomeController::class, 'location'])->name('home.location');
+
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/listing/{id}/property', [App\Http\Controllers\HomeController::class, 'view'])->name('home.single');
+    Route::get('/listing/{id}/sort', [App\Http\Controllers\HomeController::class, 'sort'])->name('home.sort');
+    Route::get('/location/{id}', [App\Http\Controllers\HomeController::class, 'location'])->name('home.location');
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
@@ -27,6 +28,8 @@ Route::post('/cart/inspection', [App\Http\Controllers\InspectionController::clas
 Route::delete('/cart/{cart}/destroy', [App\Http\Controllers\CartController::class, 'delete'])->name('cart.destroy');
 Route::delete('/cart/{cart}/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::class, 'view'])->name('cart.view');
+Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\InspectionController::class, 'view'])->name('inspection.view');
+Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'delete'])->name('inspection.destroy');
 
 });
 

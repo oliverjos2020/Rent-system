@@ -7,6 +7,7 @@ use App\Models\Property;
 use App\Models\Photo;
 use App\Models\Category;
 use App\Models\Location;
+use App\Models\Inspection;
 use App\Models\Cart;
 
 class HomeController extends Controller
@@ -50,7 +51,8 @@ class HomeController extends Controller
         $cart = Cart::where('user_id', $user)->get();
         $property = Property::findOrFail($id);
         $photo = Photo::where('property_id', $id)->get();
-        $cartbtn = Cart::where('property_id', $id)->where('user_id', $user)->limit(1)->get(); 
+        $cartbtn = Cart::where('property_id', $id)->where('user_id', $user)->limit(1)->get();
+        $inspectionbtn = Inspection::where('property_id', $id)->where('user_id', $user)->limit(1)->get(); 
         $category = Category::all();
         $location = Location::all();
         return view('home.single', [
@@ -59,7 +61,8 @@ class HomeController extends Controller
             'category'=>$category,
             'cart'=>$cart,
             'cartbtn'=>$cartbtn,
-            'location'=>$location
+            'location'=>$location,
+            'inspectionbtn'=>$inspectionbtn
         ]);
     }
 

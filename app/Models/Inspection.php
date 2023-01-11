@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Inspection extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function user(){
+        return $this->hasMany(User::class);
+    }
+    public function property(){
+        return $this->belongsTo(Property::class);
+    }
 }

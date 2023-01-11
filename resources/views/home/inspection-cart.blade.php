@@ -97,13 +97,13 @@
         <div class="row my-4">
           <div class="col-md-9">
             
-            @forelse ($cartitem as $cart)
+            @forelse ($Inspectionitem as $cart)
             <div class="row my-4">
               <div class="col-sm-2">
-                <form method="POST" action="{{route('cart.destroy', $cart->id)}}">
+                <form method="POST" action="{{route('inspection.destroy', $cart->id)}}">
                   @csrf
                   @method("DELETE")
-                <img src="{{$cart->property->featured_image}}" class="img-fluid" alt="...">
+                <img src="{{$cart->property->featured_image}}" class="img-fluid" alt="Ruachr">
                
                 <p class="text-center"><button class="btn btn-light btn-sm position-relative text-danger" type="submit">Remove<i class="fa fa-trash"></i></button></p>
                 </form>
@@ -116,16 +116,17 @@
                 <p class="card-subtitle mb-2 text-muted">Offer: <span class="">{{$cart->property->offer==1 ? 'Open' : 'Closed'}}</p>
               </div>
             </div>
-            @empty
-              <div class="alert alert-danger my-4">No item found in your cart</div>
-            @endforelse
+            
           </div>
           <div class="col-md-3">
               <div class="card">
                 <h3 class="card-title"></h3>
-                <button class="btn btn-primary">Pay &#8358;{{number_format($total,2)}}</button>
+                <button class="btn btn-primary">Pay &#8358;{{ number_format($cart->amount, 2, ',', '.') }}</button>
               </div>
           </div>
+          @empty
+              <div class="alert alert-danger my-4">No item found in your cart</div>
+            @endforelse
         </div>
     </div>
     @endsection

@@ -25,7 +25,7 @@ class CartController extends Controller
 
     public function delete(Cart $cart){
         $cart->delete();
-        Session::flash('cart-deleted', 'Item Removed');
+        Session::flash('cart-deleted', 'Item removed from cart');
         return back();
     }
     // public function remove(Cart $cart){
