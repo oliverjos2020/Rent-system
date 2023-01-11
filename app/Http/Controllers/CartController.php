@@ -21,6 +21,8 @@ class CartController extends Controller
 
     }
 
+    
+
     public function delete(Cart $cart){
         $cart->delete();
         Session::flash('cart-deleted', 'Item Removed');

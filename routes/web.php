@@ -12,7 +12,7 @@ Route::get('/location/{id}', [App\Http\Controllers\HomeController::class, 'locat
 
 
 Route::middleware(['auth'])->group(function () {
-    
+
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
 Route::put('/dashboard/{user}/profile/update', [App\Http\Controllers\DashboardController::class, 'update'])->name('dashboard.profile.update');
@@ -23,6 +23,7 @@ Route::get('/dashboard/{user}/biodata/edit', [App\Http\Controllers\BiodataContro
 Route::put('/dashboard/{biodata}/biodata/update', [App\Http\Controllers\BiodataController::class, 'update'])->name('dashboard.biodata.update');
 
 Route::post('/cart/store', [App\Http\Controllers\CartController::class, 'create'])->name('cart.store');
+Route::post('/cart/inspection', [App\Http\Controllers\InspectionController::class, 'inspection'])->name('cart.inspection');
 Route::delete('/cart/{cart}/destroy', [App\Http\Controllers\CartController::class, 'delete'])->name('cart.destroy');
 Route::delete('/cart/{cart}/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::class, 'view'])->name('cart.view');
@@ -52,7 +53,7 @@ Route::middleware(['role:Admin','auth'])->group(function(){
 
 
     //Route::get('/dashboard/{user}/users', [App\Http\Controllers\UserController::class, 'edit'])->name('dashboard.edit');
-    Route::delete('/dashboard/{id}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('dashboard.destroy');
+    Route::delete('/dashboard/{user}/destroy', [App\Http\Controllers\UserController::class, 'destroy'])->name('dashboard.destroy');
 
 
     Route::get('dashboard/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('dashboard.categories');

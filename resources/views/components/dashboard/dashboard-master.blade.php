@@ -55,7 +55,7 @@
 				<div class="sidebar-user">
 					<img src="{{Auth()->user()->avatar}}" class="img-fluid rounded-circle mb-2" alt="{{Auth()->user()->name}}" />
 					<div class="font-weight-bold">{{Auth()->user()->name}}</div>
-					{{-- <small></small> --}}
+					{{-- <small>{{Auth()->user()->name}}</small>  --}}
 				</div>
 
 				<ul class="sidebar-nav">

@@ -14,7 +14,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->randomElement(['Apartments','Rooms For Rent','Houses For Rent','Raw Land','Single-Family Homes','Duplexes','Town Houses','Multifamily Residences','Stores','Hotels','Hospitals','Offices','Restaurant','Shopping Centers','Groceries','Agricultural Land','Ranches','Place of Worship']),
+            'name' => $this->faker->unique()->randomElement(['Apartments','Rooms For Rent','Houses For Rent','Raw Land','Single-Family Homes','Duplexes','Town Houses','Multifamily Residences','Stores','Hotels','Hospitals','Offices','Restaurant','Shopping Centers','Groceries','Agricultural Land','Ranches','Place of Worship']),
             //'slug' => $this->faker->randomElement(['Apartments','Rooms For Rent','Houses For Rent','Raw Land','Single-Family Homes','Duplexes','Town Houses','Multifamily Residences','Stores','Hotels','Hospitals','Offices','Restaurant','Shopping Centers','Groceries','Agricultural Land','Ranches','Place of Worship']),
         ];
     }

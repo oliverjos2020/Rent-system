@@ -50,7 +50,7 @@ class HomeController extends Controller
         $cart = Cart::where('user_id', $user)->get();
         $property = Property::findOrFail($id);
         $photo = Photo::where('property_id', $id)->get();
-        $cartbtn = Cart::where('property_id', $id)->get(); 
+        $cartbtn = Cart::where('property_id', $id)->where('user_id', $user)->limit(1)->get(); 
         $category = Category::all();
         $location = Location::all();
         return view('home.single', [

@@ -17,6 +17,7 @@ class CreateCartTable extends Migration
             $table->id();
             $table->foreignId('user_id')->unsigned()->index();
             $table->foreignId('property_id')->unsigned()->index();
+            $table->integer('amount');
             $table->integer('payment');
             $table->timestamps();
         });

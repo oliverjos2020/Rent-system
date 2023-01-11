@@ -17,7 +17,9 @@ class UserController extends Controller
     public function destroy(User $user){
 
         $user->delete();
-        Session::flash('user-deleted', 'User deleted');
+        // User::where('id', $user)->delete();
+        // Session::flash('user-deleted', 'User deleted');
+        Session::flash('user-deleted', 'User '.$user->name.' deleted successfuly');
         return back();
     }
 

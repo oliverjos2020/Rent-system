@@ -17,7 +17,7 @@ class CreatePropertiesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->unsigned()->index();
             $table->string('title');
-            $table->string('short_description');
+            $table->text('short_description');
             $table->text('description');
             $table->integer('category_id')->unsigned()->index();
             $table->integer('location_id')->unsigned()->index();

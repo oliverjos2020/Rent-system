@@ -23,6 +23,7 @@ class PropertyFactory extends Factory
             'amount' => $this->faker->numberBetween(500000, 10000000),
             'featured' => $this->faker->numberBetween(0, 1),
             'featured_image' => $this->faker->imageUrl('800','500'),
+            'offer' => $this->faker->numberBetween(0, 1)
         ];
     }
 }

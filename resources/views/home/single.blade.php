@@ -20,7 +20,7 @@
                 Categories
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -58,8 +58,8 @@
               <a class="nav-link" href="/login">Login</a>
             </li>
             @endif
-    
-           
+
+
           </ul>
           <a href="
           @if(Auth::check())
@@ -67,13 +67,13 @@
           @else
           #
           @endif
-          " 
+          "
           class="btn btn-primary position-relative">
             <i class="fa fa-cart-plus"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              
+
               {{$cart->count()}}
-              
+
             </span>
           </a>
           <form class="d-flex">
@@ -114,31 +114,31 @@
                           <span class="visually-hidden">Next</span>
                         </button>
                       </div>
-                        
+
                     </div>
-                    
+
                     <h5 style="font-family: Open Sans; font-weight:bold; font-size:30px; margin-top:15px;">{{$property->title}} </h5>
                     <hr>
-                    
-                    
+
+
                     <h6>by <span class="text-primary">{{$property->user->name}}</span> Posted {{$property->created_at->diffForHumans()}}</h6>
                     <hr class="my-2">
                     <h6>Price : &#8358;{{ number_format($property->amount, 2, ',', '.') }}</h6>
                     <hr class="my-1">
                     <div class="container my-1">
-                        <div class="text-justify">
+                        <div class="text-justify" style="text-align:justify">
                             {{$property->description}}
                         </div>
                     </div>
                 </div>
             </div>
-  
+
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
-  
+
           <!-- Search Widget -->
           <div class="card my-4">
-           
+
             <div class="card-body">
               <ul class="list-group">
                 <li class="list-group-item">Price : &#8358;{{ number_format($property->amount, 2, ',', '.') }}</li>
@@ -170,18 +170,18 @@
                 @csrf
                 @method("DELETE")
                 <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
-                <input type="hidden" name="payment" class="form-control" value="0"> 
-              
-                
+                <input type="hidden" name="payment" class="form-control" value="0">
+
+
                 <button class="btn btn-success position-relative" type="submit">Added to Cart <i class="fa fa-cart-plus"></i>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    
+
                     @if(Auth::check())
                       {{$cart->count()}}
                     @else
                       0
                     @endif
-                  
+
                   <span class="visually-hidden"></span>
                 </span>
               </button>
@@ -190,7 +190,7 @@
                   Pay Now
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     Coming soon
-                   
+
                   </span>
                 </button>
               </form>
@@ -200,10 +200,10 @@
                 {{$property->id}}<br>
                 {{$cartbtn}}<br>
                 <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
-                <input type="hidden" name="payment" class="form-control" value="0"> 
+                <input type="hidden" name="payment" class="form-control" value="0">
                 <button class="btn btn-primary position-relative" type="submit">Add to Cart <i class="fa fa-cart-plus"></i>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    
+
                     @if(Auth::check())
                       {{$cart->count()}}
                     @else
@@ -218,7 +218,7 @@
                   Pay Now
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     Coming soon
-                   
+
                   </span>
                 </button>
               </form>
@@ -227,11 +227,11 @@
               <form method="POST" action="{{route('cart.store')}}">
                 @csrf
                 <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
-                <input type="hidden" name="payment" class="form-control" value="0"> 
+                <input type="hidden" name="payment" class="form-control" value="0">
                 <input type="hidden" name="amount" class="form-control" value="{{$property->amount}}">
                 <button class="btn btn-primary position-relative" type="submit">Add to Cart <i class="fa fa-cart-plus"></i>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    
+
                     @if(Auth::check())
                       {{$cart->count()}}
                     @else
@@ -246,16 +246,33 @@
                   Pay Now
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     Coming soon
-                   
+
                   </span>
                 </button>
-              </form>
+            </form>
               @endforelse
-              
-              
+
+
             </div>
           </div>
-  
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Inspection</h5>
+            <div class="card-body">
+                <p>Contact : +2347062902972 after a successful payment to schedule a time for your inspection</p>
+                Inspection fee <span class="badge rounded-pill bg-primary">&#8358;5,000</span><br><br>
+                <form method="POST" action="{{route('cart.inspection')}}">
+                    @csrf
+                    <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
+                    <input type="hidden" name="payment" class="form-control" value="0">
+                    <input type="hidden" name="amount" class="form-control" value="5000">
+                    <button class="btn btn-primary position-relative" type="submit">Pay for inspection
+                  </button>
+
+                </form>
+            </div>
+          </div>
+
           <!-- Categories Widget -->
           <div class="card my-4">
             <h5 class="card-header">Categories</h5>
@@ -289,20 +306,12 @@
               </div>
             </div>
           </div>
-  
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
-              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-            </div>
-          </div>
-  
+
         </div>
-  
+
       </div>
       <!-- /.row -->
-  
+
     </div>
     @endsection
 </x-home.home-master>
