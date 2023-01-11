@@ -30,7 +30,7 @@ Route::delete('/cart/{cart}/remove', [App\Http\Controllers\CartController::class
 Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::class, 'view'])->name('cart.view');
 Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\InspectionController::class, 'view'])->name('inspection.view');
 Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'delete'])->name('inspection.destroy');
-
+Route::post('/verify-payment', [App\Http\Controllers\InspectionController::class, 'verify'])->name('inspection.verify');
 });
 
 Route::middleware(['role:Admin','auth'])->group(function(){

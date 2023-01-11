@@ -40,4 +40,8 @@ class InspectionController extends Controller
         Session::flash('cart-deleted', 'Item Removed');
         return back();
     }
+
+    public function verify($reference){
+        return $reference;
+    }
 }
