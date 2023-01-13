@@ -121,7 +121,8 @@
             <div class="col-md-3">
                 <div class="card">
                     <h3 class="card-title"></h3>
-                    <form id="paymentForm">
+                    <form id="subForm">
+                        @csrf
                         <input type="text" name="email" id="email-address" value="{{Auth()->User()->email}}" class="form-control">
                         <input type="text" name="amount" id="amount" class="form-control" value="{{$cart->amount}}">
                         <button class="btn btn-primary" onclick="payWithPaystack(event)">Pay &#8358;{{ number_format($cart->amount, 2, ',', '.') }}</button>
@@ -134,73 +135,85 @@
             @endforelse
         </div>
     </div>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
     <script>
-        const paymentForm = document.getElementById('paymentForm');
+    // $("#subForm").submit(function(e){
+    //     e.preventDefault();
+    //     let email = $("#email-address").val();
+    //     let amount = $("#amount").val();
+    //     let _token = $("input[name=_token]").val();
+    //     $.ajax({
+    //                     url: "{{route('inspection.verify')}}",
+    //                     type: "POST",
+    //                     data: {
+    //                         email:email,
+    //                         amount:amount,
+    //                         _token:_token
+    //                     },
+    //                     success:function(res){
+    //                         console.log(res);
+    //                         // console.log(ref);
+    //                     }
+    //                 })
+    // });
+
+        const paymentForm = document.getElementById('subForm');
         paymentForm.addEventListener("submit", payWithPaystack, false);
+            function payWithPaystack(e) {
+                e.preventDefault();
 
-        function payWithPaystack(e) {
-            e.preventDefault();
-
-            let handler = PaystackPop.setup({
-                key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99', // Replace with your public key
-                email: document.getElementById("email-address").value
-                , amount: document.getElementById("amount").value * 100
-                , ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                // label: "Optional string that replaces customer email"
-                onClose: function() {
-                    alert('Window closed.');
-                }
-                , callback: function(response) {
-                    let message = response.reference;
+                let handler = PaystackPop.setup({
+                    key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99', 
+                    email: document.getElementById("email-address").value,
+                    amount: document.getElementById("amount").value * 100,
+                    ref: ''+Math.floor((Math.random() * 1000000000) + 1),
                     
-                    $.ajax({
-                      url: "{{URL::to('verify-payment')}}",
-                      data: {reference:message},
-                      method: "POST",
-                      success: function(reference){
-                      console.log(response);
+                    onClose: function(){
+                    alert('Window closed.');
+                    },
+                    callback: function(response){
+                        // console.log(response);
+                        let ref = response.reference;
+                        let email = $("#email-address").val();
+                        let amount = $("#amount").val();
+                        let _token = $("input[name=_token]").val();
+                        $.ajax({
+                                        url: "{{route('inspection.verify')}}",
+                                        type: "POST",
+                                        data: {
+                                            email:email,
+                                            amount:amount,
+                                            reference:ref,
+                                            _token:_token
+                                            
+                                        },
+                                        success:function(res){
+                                            // console.log(res);
+                                            obj = JSON.parse(res);
+                                            var status = obj.status;
+
+                                        //    console.log(status);
+                                            if(status == true){
+                                                alert("Payment Succefssful");
+                                            }else{
+                                                alert("Error verifying payment");
+                                            }
+                                        }
+                                    })
+                                    
+
+                    // let message = 'Payment complete! Reference: ' + response.reference;
+                    // let ref = response.reference;
+
+                    
                     }
-                    });
-                    alert(message);
-                }
-            });
+                    
+                });
+             
 
-            handler.openIframe();
-        }
-
-
-
-
-        // const paymentForm = document.getElementById('paymentForm');
-        // paymentForm.addEventListener("submit", payWithPaystack, false);
-        // function payWithPaystack(e) {
-        //   e.preventDefault();
-
-        //   let handler = PaystackPop.setup({
-        //     key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99',
-        //     email: document.getElementById("email-address").value,
-        //     amount: document.getElementById("amount").value * 100,
-        //     ref: ''+Math.floor((Math.random() * 1000000000) + 1),
-        //     onClose: function(){
-        //       alert('Window closed.');
-        //     },
-        //     callback: function(response){
-
-        //       let reference = response.reference;
-              // $.ajax({
-              //   url: "{{route('inspection.verify')}}",
-              //   data: {reference:reference},
-              //   method: "POST",
-              //    success: function(reference){
-              //   console.log(response);
-              // }
-              // });
-
-        //   handler.openIframe();
-        // }
-        //   });
-        // }
-
+                handler.openIframe();
+            }
+    // });
     </script>
     @endsection
 </x-home.home-master>
