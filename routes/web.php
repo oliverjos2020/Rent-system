@@ -18,6 +18,7 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
 Route::put('/dashboard/{user}/profile/update', [App\Http\Controllers\DashboardController::class, 'update'])->name('dashboard.profile.update');
 
+
 Route::get('/dashboard/{user}/biodata', [App\Http\Controllers\BiodataController::class, 'index'])->name('dashboard.biodata');
 Route::post('/dashboard/biodata/store', [App\Http\Controllers\BiodataController::class, 'create'])->name('dashboard.biodata.store');
 Route::get('/dashboard/{user}/biodata/edit', [App\Http\Controllers\BiodataController::class, 'edit'])->name('dashboard.biodata.edit');
@@ -31,6 +32,7 @@ Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::cla
 Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\InspectionController::class, 'view'])->name('inspection.view');
 Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'delete'])->name('inspection.destroy');
 Route::post('/verify-payment', [App\Http\Controllers\InspectionController::class, 'verify'])->name('inspection.verify');
+Route::get('/dashboard/manage-inspection', [App\Http\Controllers\InspectionController::class, 'index'])->name('dashboard.manage-inspection');
 });
 
 Route::middleware(['role:Admin','auth'])->group(function(){

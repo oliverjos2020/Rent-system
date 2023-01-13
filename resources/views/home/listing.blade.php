@@ -1,5 +1,5 @@
 <x-home.home-master>
-    @section('content')
+    @section('content') 
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('img/logo.png')}}" style="max-height:50px;"></a>
@@ -56,25 +56,21 @@
     
            
           </ul>
-          <button type="button" class="btn btn-primary position-relative">
+          <a href="
+          @if(Auth::check())
+          {{route('cart.view', Auth()->User())}}
+          @else
+          #
+          @endif
+          "
+          class="btn btn-primary position-relative">
             <i class="fa fa-cart-plus"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              @forelse ($cart as $carts)
-                @if(Auth::check())
-                  @if ($carts->user_id == Auth()->user()->id)
-                  {{$carts->count()}}
-                  @else
-                  0
-                  @endif
-                @else
-                  0
-                @endif
-              @empty
-              0
-              @endforelse
-              <span class="visually-hidden"></span>
+
+              {{$cart->count()}}
+
             </span>
-          </button>
+          </a>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>

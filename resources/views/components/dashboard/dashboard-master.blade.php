@@ -46,10 +46,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar">
 			<a class="sidebar-brand" href="{{route('home')}}">
-				<svg>
-					<use xlink:href="#ion-ios-pulse-strong"></use>
-				</svg>
-				Spark
+				<img src="{{asset('img/logo-inverse.png')}}" style="max-height:50px;">
 			</a>
 			<div class="sidebar-content">
 				<div class="sidebar-user">
@@ -65,6 +62,11 @@
 					<li class="sidebar-item">
 						<a href="{{route('dashboard.index')}}" class="sidebar-link">
 							<i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboard</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="{{route('dashboard.manage-inspection')}}" class="sidebar-link">
+							<i class="align-middle mr-2 fas fa-fw fa-car"></i> <span class="align-middle">Inspection</span>
 						</a>
 					</li>
 					

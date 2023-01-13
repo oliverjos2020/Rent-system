@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Session;
 
 class InspectionController extends Controller
 {
+
+    public function index(){
+        $id = Auth()->User()->id;
+        $inspection = Inspection::where('user_id', $id)->get();
+        return view('dashboard.manage-inspection', ['inspection' => $inspection]);
+    }
+
     public function inspection(){
         $data = request()->validate([
             'property_id' => ['required','max:15'],

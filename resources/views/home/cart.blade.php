@@ -103,7 +103,7 @@
                 <form method="POST" action="{{route('cart.destroy', $cart->id)}}">
                   @csrf
                   @method("DELETE")
-                <img src="{{$cart->property->featured_image}}" class="img-fluid" alt="...">
+                <img src="{{$cart->property->featured_image}}" class="img-fluid" alt="Ruachr">
                
                 <p class="text-center"><button class="btn btn-light btn-sm position-relative text-danger" type="submit">Remove<i class="fa fa-trash"></i></button></p>
                 </form>
