@@ -112,8 +112,10 @@
                         <h6 class="my-0">{{$cart->property->title}}</h6>
                         <p class="card-subtitle mb-2 text-muted">at : {{$cart->property->location->name}}</p>
                         <p class="card-subtitle mb-2 text-muted" style="font-size:16px"> <span class="badge rounded-pill bg-primary">{{$cart->property->category->name}}</span></p>
-                        <p class="card-subtitle mb-2 text-muted">&#8358;{{ number_format($cart->property->amount, 2, ',', '.') }}</p>
-                        <p class="card-subtitle mb-2 text-muted">Offer: <span class="">{{$cart->property->offer==1 ? 'Open' : 'Closed'}}</p>
+                        <p class="card-subtitle mb-2 text-muted">&#8358;{{ number_format($cart->property->amount, 2,
+                            ',', '.') }}</p>
+                        <p class="card-subtitle mb-2 text-muted">Offer: <span class="">{{$cart->property->offer==1 ?
+                                'Open' : 'Closed'}}</p>
                     </div>
                 </div>
 
@@ -123,9 +125,12 @@
                     <h3 class="card-title"></h3>
                     <form id="subForm">
                         @csrf
-                        <input type="text" name="email" id="email-address" value="{{Auth()->User()->email}}" class="form-control">
-                        <input type="text" name="amount" id="amount" class="form-control" value="{{$cart->amount}}">
-                        <button class="btn btn-primary" onclick="payWithPaystack(event)">Pay &#8358;{{ number_format($cart->amount, 2, ',', '.') }}</button>
+                        <input type="hidden" name="email" id="email-address" value="{{Auth()->User()->email}}" class="form-control">
+                        <input type="hidden" name="amount" id="amount" class="form-control" value="{{$cart->amount}}">
+                        <input type="hidden" name="user_id" id="user-id" class="form-control" value="{{$cart->user_id}}">
+                        <input type="hidden" name="property_id" id="property-id" class="form-control" value="{{$cart->property->id}}">
+                        <button class="btn btn-primary" onclick="payWithPaystack(event)">Pay &#8358;{{
+                            number_format($cart->amount, 2, ',', '.') }}</button>
                     </form>
                     <script src="https://js.paystack.co/v1/inline.js"></script>
                 </div>
@@ -137,83 +142,63 @@
     </div>
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script>
-    // $("#subForm").submit(function(e){
-    //     e.preventDefault();
-    //     let email = $("#email-address").val();
-    //     let amount = $("#amount").val();
-    //     let _token = $("input[name=_token]").val();
-    //     $.ajax({
-    //                     url: "{{route('inspection.verify')}}",
-    //                     type: "POST",
-    //                     data: {
-    //                         email:email,
-    //                         amount:amount,
-    //                         _token:_token
-    //                     },
-    //                     success:function(res){
-    //                         console.log(res);
-    //                         // console.log(ref);
-    //                     }
-    //                 })
-    // });
-
         const paymentForm = document.getElementById('subForm');
         paymentForm.addEventListener("submit", payWithPaystack, false);
-            function payWithPaystack(e) {
-                e.preventDefault();
 
-                let handler = PaystackPop.setup({
-                    key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99', 
-                    email: document.getElementById("email-address").value,
-                    amount: document.getElementById("amount").value * 100,
-                    ref: ''+Math.floor((Math.random() * 1000000000) + 1),
-                    
-                    onClose: function(){
+        function payWithPaystack(e) {
+            e.preventDefault();
+
+            let handler = PaystackPop.setup({
+                key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99'
+                , email: document.getElementById("email-address").value
+                , amount: document.getElementById("amount").value * 100
+                , ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+
+                onClose: function() {
                     alert('Window closed.');
-                    },
-                    callback: function(response){
-                        // console.log(response);
-                        let ref = response.reference;
-                        let email = $("#email-address").val();
-                        let amount = $("#amount").val();
-                        let _token = $("input[name=_token]").val();
-                        $.ajax({
-                                        url: "{{route('inspection.verify')}}",
-                                        type: "POST",
-                                        data: {
-                                            email:email,
-                                            amount:amount,
-                                            reference:ref,
-                                            _token:_token
-                                            
-                                        },
-                                        success:function(res){
-                                            // console.log(res);
-                                            obj = JSON.parse(res);
-                                            var status = obj.status;
+                }
+                , callback: function(response) {
+                    // console.log(response);
+                    let ref = response.reference;
+                    let email = $("#email-address").val();
+                    let amount = $("#amount").val();
+                    let user = $("#user-id").val();
+                    let property = $("#property-id").val();
+                    let _token = $("input[name=_token]").val();
+                    $.ajax({
+                        url: "{{route('inspection.verify')}}"
+                        , type: "POST"
+                        , data: {
+                            email: email
+                            , amount: amount
+                            , reference: ref
+                            , user: user
+                            , property_id: property
+                            , _token: _token
 
-                                        //    console.log(status);
-                                            if(status == true){
-                                                alert("Payment Succefssful");
-                                            }else{
-                                                alert("Error verifying payment");
-                                            }
-                                        }
-                                    })
-                                    
+                        }
+                        , success: function(res) {
+                            console.log(res);
+                            obj = JSON.parse(res);
+                            var status = obj.status;
 
-                    // let message = 'Payment complete! Reference: ' + response.reference;
-                    // let ref = response.reference;
+                            //    console.log(status);
+                            if (status == true) {
+                                alert("Payment Succefssful");
+                            } else {
+                                alert("Error verifying payment");
+                            }
+                        }
+                    })
 
-                    
-                    }
-                    
-                });
-             
+                }
 
-                handler.openIframe();
-            }
-    // });
+            });
+
+
+            handler.openIframe();
+        }
+
     </script>
     @endsection
 </x-home.home-master>

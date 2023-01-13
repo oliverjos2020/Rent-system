@@ -52,7 +52,7 @@ class HomeController extends Controller
         $property = Property::findOrFail($id);
         $photo = Photo::where('property_id', $id)->get();
         $cartbtn = Cart::where('property_id', $id)->where('user_id', $user)->limit(1)->get();
-        $inspectionbtn = Inspection::where('property_id', $id)->where('user_id', $user)->limit(1)->get(); 
+        $inspectionbtn = Inspection::where('property_id', $id)->where('user_id', $user)->where('payment', '0')->limit(1)->get(); 
         $category = Category::all();
         $location = Location::all();
         return view('home.single', [

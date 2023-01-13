@@ -30,7 +30,7 @@ class InspectionController extends Controller
 
     public function view($id){
         $cart = Cart::limit(1)->get();
-        $Inspectionitem = Inspection::where('user_id', $id)->get();
+        $Inspectionitem = Inspection::where('user_id', $id)->where('payment', '0')->get();
         // $total = Cart::where('user_id', $id)->sum('amount');
         return view('home.inspection-cart', ['cart'=>$cart,'Inspectionitem'=>$Inspectionitem]);
     }
@@ -42,37 +42,49 @@ class InspectionController extends Controller
     }
 
     public function verify(Request $request){
-        // return $request['reference'];
+        // return $request;
+        $inspection = new Inspection;
         $skey = "sk_test_f4f498e04004fea994980a1574ad941b908fc60a";
         $reference = $request['reference'];
+        $user = $request['user'];
+        $property = $request['property_id'];
+        $status = 1;
+
         $curl = curl_init();
   
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://api.paystack.co/transaction/verify/$reference",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_SSL_VERIFYHOST => 0,
-    CURLOPT_SSL_VERIFYPEER => 0,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-      "Authorization: Bearer $skey",
-      "Cache-Control: no-cache",
-    ),
-  ));
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.paystack.co/transaction/verify/$reference",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+        "Authorization: Bearer $skey",
+        "Cache-Control: no-cache",
+        ),
+    ));
   
-  $response = curl_exec($curl);
-  $err = curl_error($curl);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
 
-  curl_close($curl);
-  
-  if ($err) {
-    echo "cURL Error #:" . $err;
-  } else {
-    echo $response;
-  }
+        curl_close($curl);
         
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $obj = json_decode($response);
+            $message = $obj->message;
+            
+            Inspection::where('user_id', $user)->where('property_id', $property)->where('payment', '0')->update(['payment' => $status, 'payment_message' => $message, 'reference_id' => $reference]);
+            echo $response;
+            // return $obj->message;
+        }
+                
     }
+
+
 }
