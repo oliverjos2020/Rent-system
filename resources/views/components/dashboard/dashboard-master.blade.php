@@ -64,17 +64,23 @@
 							<i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboard</span>
 						</a>
 					</li>
-					<li class="sidebar-item">
-						<a href="{{route('dashboard.manage-inspection')}}" class="sidebar-link">
-							<i class="align-middle mr-2 fas fa-fw fa-car"></i> <span class="align-middle">Inspection</span>
-						</a>
-					</li>
+					
 					
 					@if(auth()->user()->userHasRole('Admin'))
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{route('dashboard.users')}}">
 							<i class="align-middle mr-2 far fa-fw fa-calendar-alt"></i> <span class="align-middle">Users</span>
 						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="#inspection" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle mr-2 fas fa-fw fas fa-car"></i> <span class="align-middle">Inspection</span>
+						</a>
+						<ul id="inspection" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.inspection-awaiting-payt')}}">Awaiting Payment for Inspection</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-inspection-pending')}}">Pending Inspection</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-inspection')}}">Finished Inspection</a></li>
+						</ul>
 					</li>
 					<li class="sidebar-item">
 						<a href="#authorization" data-toggle="collapse" class="sidebar-link collapsed">
@@ -107,6 +113,12 @@
 							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-property')}}">Manage Property</a></li>
 						</ul>
 					</li>
+					@else
+					<li class="sidebar-item">
+						<a href="{{route('dashboard.manage-inspection')}}" class="sidebar-link">
+							<i class="align-middle mr-2 fas fa-fw fa-car"></i> <span class="align-middle">Inspection</span>
+						</a>
+					</li>
 					@endif
 
 					<li class="sidebar-header">
@@ -117,6 +129,7 @@
 							<i class="align-middle mr-2 fas fa-fw fa-user-alt"></i> <span class="align-middle">Profile</span>
 						</a>
 					</li>
+					
 
 					<li class="sidebar-item">
 						<form action="/logout" method="post">

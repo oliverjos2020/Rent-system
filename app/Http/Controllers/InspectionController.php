@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Inspection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -10,9 +11,28 @@ class InspectionController extends Controller
 {
 
     public function index(){
-        $id = Auth()->User()->id;
-        $inspection = Inspection::where('user_id', $id)->get();
+        
+        if(auth()->user()->userHasRole('Admin')){
+            $inspection = Inspection::where('payment', '1')->where('visit', '1')->get();
+        }else{
+            $id = Auth()->User()->id;
+            $inspection = Inspection::where('user_id', $id)->get();
+        }
+       
         return view('dashboard.manage-inspection', ['inspection' => $inspection]);
+    }
+
+    public function pending(){
+        
+            $inspection = Inspection::where('payment', '1')->where('visit', '0')->get();
+    
+        return view('dashboard.manage-inspection', ['inspection' => $inspection]);
+    }
+
+    public function wishlist(){
+        $inspection = Inspection::where('payment', '0')->where('visit', '0')->get();
+    
+        return view('dashboard.inspection-awaiting-payt', ['inspection' => $inspection]);
     }
 
     public function inspection(){
@@ -20,6 +40,7 @@ class InspectionController extends Controller
             'property_id' => ['required','max:15'],
             'payment' => ['required','max:15'],
             'amount' => ['required','max:15'],
+            'visit' => ['required','max:15']
         ]);
         auth()->user()->inspections()->create($data);
 

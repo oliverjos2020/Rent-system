@@ -11,8 +11,8 @@ class Inspection extends Model
     protected $guarded = [];
 
     public function user(){
-        return $this->hasMany(User::class);
-    }
+        return $this->belongsTo(User::class);
+    } 
     public function property(){
         return $this->belongsTo(Property::class);
     }

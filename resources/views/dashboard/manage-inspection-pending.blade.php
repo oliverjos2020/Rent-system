@@ -5,7 +5,7 @@
             <div class="card-header">
                 <h5 class="card-title mb-0">Manage Inspection</h5>
             </div>
-            <div class="card-body table-responsive">
+            <div class="card-body">
                 @if(session()->has('property-deleted'))
                 <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
                     <div class="alert-icon">
@@ -23,12 +23,13 @@
                 <table id="datatables-basic" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
-                          
-                           @if(auth()->user()->userHasRole('Admin'))
-                           <th>User</th>
-                           @else
+                            
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <th>User</th>
+                            @else
 
-                           @endif
+                            @endif
+                            
                             <th>Photo</th>
                             <th>Property</th>
                             <th>Amount</th>
@@ -36,20 +37,17 @@
                             <th>Date Created</th>
                             <th>Date Paid</th>
                             <th>Ref id</th>
-                            <th>Visit</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($inspection as $inspections)
                         <tr>
+                            
                             @if(auth()->user()->userHasRole('Admin'))
-                            <td>
-                                <a href="{{route('dashboard.profile', $inspections->user->id)}}">{{$inspections->user->name}}</a>
-                                </td>
+                            <td><a href="{{route('dashboard.profile', $inspections->user->id)}}">{{$inspections->user->name}}</a></td>
                             @else
 
                             @endif
-
                             
                             <td><img src="{{$inspections->property->featured_image}}" height="50px" alt="Ruachr"></td>
                             
@@ -61,18 +59,18 @@
                             <td>
                                 {{$inspections->reference_id}}
                             </td>
-                            <td><span class="badge rounded-pill bg-primary">{{$inspections->visit==1 ? 'Yes' : 'No'}}</span></td></td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
+                            
                             @if(auth()->user()->userHasRole('Admin'))
-                           <th>User</th>
-                           @else
+                            <th>User</th>
+                            @else
 
-                           @endif
-
+                            @endif
+                            
                             <th>Photo</th>
                             <th>Property</th>
                             <th>Amount</th>
@@ -80,7 +78,6 @@
                             <th>Date Created</th>
                             <th>Date Paid</th>
                             <th>Ref id</th>
-                            <th>Visit</th>
                         </tr>
                     </tfoot>
                 </table>

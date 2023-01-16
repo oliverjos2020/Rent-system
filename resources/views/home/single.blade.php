@@ -165,6 +165,35 @@
           </div>
 
           <div class="card my-4">
+            <h5 class="card-header">Inspection</h5>
+            <div class="card-body">
+                <p>Contact : +2347062902972 after a successful payment to schedule a time for your inspection</p>
+                Inspection fee <span class="badge rounded-pill bg-primary">&#8358;2,000</span><br><br>
+                <form method="POST" action="{{route('cart.inspection')}}">
+                    @csrf
+                    <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
+                    <input type="hidden" name="payment" class="form-control" value="0">
+                    <input type="hidden" name="visit" class="form-control" value="0">
+                    <input type="hidden" name="amount" class="form-control" value="2000">
+                  @forelse($inspectionbtn as $inspection)
+                  @if($property->id == $inspection->property_id)
+                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment <i class="fa fa-credit-card"></i>
+                  </button> --}}
+                  <a href="{{route('inspection.view', Auth()->User())}}" class="btn btn-success position-relative">Proceed to payment <i class="fa fa-credit-card"></i></a>
+                  @else
+                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment
+                  </button> --}}
+                  @endif
+                  @empty
+                  <button class="btn btn-primary position-relative" type="submit">Pay for inspection
+                  </button>
+                  @endforelse
+                </form>
+            </div>
+          </div>
+
+
+          <div class="card my-4">
             <h5 class="card-header">Cart</h5>
             <div class="card-body">
               
@@ -261,36 +290,7 @@
             </div>
           </div>
           <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Inspection</h5>
-            <div class="card-body">
-                <p>Contact : +2347062902972 after a successful payment to schedule a time for your inspection</p>
-                Inspection fee <span class="badge rounded-pill bg-primary">&#8358;5,000</span><br><br>
-                <form method="POST" action="{{route('cart.inspection')}}">
-                    @csrf
-                    <input type="hidden" name="property_id" class="form-control" value="{{$property->id}}">
-                    <input type="hidden" name="payment" class="form-control" value="0">
-                    <input type="hidden" name="amount" class="form-control" value="5000">
-                  @forelse($inspectionbtn as $inspection)
-                  @if($property->id == $inspection->property_id)
-                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment <i class="fa fa-credit-card"></i>
-                  </button> --}}
-                  <a href="{{route('inspection.view', Auth()->User())}}" class="btn btn-success position-relative">Proceed to payment <i class="fa fa-credit-card"></i></a>
-                  @else
-                  {{-- <button class="btn btn-success position-relative" type="submit">Proceed to payment
-                  </button> --}}
-                  @endif
-                  @empty
-                  <button class="btn btn-primary position-relative" type="submit">Pay for inspection
-                  </button>
-                  @endforelse
-                    
-                    
-
-                </form>
-            </div>
-          </div>
-
+          
           <!-- Categories Widget -->
           <div class="card my-4">
             <h5 class="card-header">Categories</h5>

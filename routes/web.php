@@ -33,6 +33,9 @@ Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\Inspecti
 Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'delete'])->name('inspection.destroy');
 Route::post('/verify-payment', [App\Http\Controllers\InspectionController::class, 'verify'])->name('inspection.verify');
 Route::get('/dashboard/manage-inspection', [App\Http\Controllers\InspectionController::class, 'index'])->name('dashboard.manage-inspection');
+Route::get('/dashboard/manage-inspection/pending', [App\Http\Controllers\InspectionController::class, 'pending'])->name('dashboard.manage-inspection-pending');
+
+Route::get('/dashboard/inspection/awaiting-payment', [App\Http\Controllers\InspectionController::class, 'wishlist'])->name('dashboard.inspection-awaiting-payt');
 });
 
 Route::middleware(['role:Admin','auth'])->group(function(){
