@@ -20,7 +20,7 @@ class PropertyFactory extends Factory
             'description' => $this->faker->paragraphs(rand(10, 15), true),
             'category_id' => $this->faker->numberBetween(1, 10),
             'location_id' => $this->faker->numberBetween(1, 10),
-            'amount' => $this->faker->numberBetween(500000, 10000000),
+            'amount' => $this->faker->numberBetween(50000, 200000),
             'featured' => $this->faker->numberBetween(0, 1),
             'featured_image' => $this->faker->imageUrl('800','500'),
             'offer' => $this->faker->numberBetween(0, 1)

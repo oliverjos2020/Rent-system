@@ -129,6 +129,7 @@
                         <input type="hidden" name="amount" id="amount" class="form-control" value="{{$cart->amount}}">
                         <input type="hidden" name="user_id" id="user-id" class="form-control" value="{{$cart->user_id}}">
                         <input type="hidden" name="property_id" id="property-id" class="form-control" value="{{$cart->property->id}}">
+                        <input type="hidden" name="type" id="type" value="inspection" class="form-control">
                         <button class="btn btn-primary" onclick="payWithPaystack(event)">Pay &#8358;{{
                             number_format($cart->amount, 2, ',', '.') }}</button>
                     </form>
@@ -164,6 +165,7 @@
                     let amount = $("#amount").val();
                     let user = $("#user-id").val();
                     let property = $("#property-id").val();
+                    let type = $("#type").val();
                     let _token = $("input[name=_token]").val();
                     $.ajax({
                         url: "{{route('inspection.verify')}}"
@@ -174,6 +176,7 @@
                             , reference: ref
                             , user: user
                             , property_id: property
+                            , type: type
                             , _token: _token
 
                         }
@@ -185,8 +188,10 @@
                             //    console.log(status);
                             if (status == true) {
                                 alert("Payment Succefssful");
+                                location.reload();
                             } else {
                                 alert("Error verifying payment");
+                                location.reload();
                             }
                         }
                     })

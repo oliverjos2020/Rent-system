@@ -78,15 +78,10 @@
                                 <div class="form-group">
                                     <label for="category">Category: <span class="text-primary">{{$property->category->name}}</span></label>
                                     <select name="category_id" id="category" class="form-control">
-                                        <option value="{{$property->category->id}}">{{$property->category->name}}</option>
-                                        @foreach ($category as $categories)
-                                        @if($property->category->name==$categories->name)
-
-                                        @else
-                                        <option value="{{$categories->id}}">{{$categories->name}}</option>
-                                        @endif
                                         
-                                        {{-- <option value="{{$categories->id}}">{{$categories->name}}</option> --}}
+                                        @foreach ($category as $categories)
+                                        
+                                        <option {{($categories->name==$property->category->name)?"selected":""}} value="{{$categories->id}}">{{$categories->name}}</option>
                                         @endforeach
                                         
                                     </select>
@@ -97,15 +92,11 @@
                                 <div class="form-group">
                                     <label for="Location">Location: <span class="text-primary">{{$property->location->name}}</span></label>
                                     <select name="location_id" id="location" class="form-control">
-                                        <option value="{{$property->location->name}}">{{$property->location->name}}</option>
+                                        
                                         @foreach ($location as $locations)
-                                        @if($property->location==$locations->name)
-
-                                        @else
-                                        <option value="{{$locations->id}}">{{$locations->name}}</option>
-                                        @endif
-
+                                        <option {{($locations->name==$property->location->name)?"selected":""}} value="{{$locations->id}}">{{$locations->name}}</option>
                                         @endforeach
+                                        
                                         @error('location_id')
                                         <div class="invalid-feedback">{{$message}}</div>                                        
                                     @enderror

@@ -104,7 +104,7 @@
                   @csrf
                   @method("DELETE")
                 <img src="{{$cart->property->featured_image}}" class="img-fluid" alt="Ruachr">
-               
+ 
                 <p class="text-center"><button class="btn btn-light btn-sm position-relative text-danger" type="submit">Remove<i class="fa fa-trash"></i></button></p>
                 </form>
               </div>
@@ -123,10 +123,90 @@
           <div class="col-md-3">
               <div class="card">
                 <h3 class="card-title"></h3>
-                <button class="btn btn-primary">Pay &#8358;{{number_format($total,2)}}</button>
+                <form id="subForm">
+                  @csrf
+                  <input type="hidden" name="amount" id="amount" class="form-control" value="{{$total}}">
+                  <input type="hidden" name="email" id="email-address" value="{{Auth()->User()->email}}" class="form-control">
+                  <input type="hidden" name="user_id" id="user-id" class="form-control" value="{{$cart->user_id}}">
+                  <input type="hidden" name="type" id="type" value="cart" class="form-control">
+                  @forelse ($cartitem as $cart)
+                  
+                  <input type="hidden" name="property_id" id="property-id" class="form-control" value="{{$cart->property->id}}">
+                  
+                  @empty
+
+                  @endforelse
+                  <button class="btn btn-primary" onclick="payWithPaystack(event)">Pay &#8358;{{
+                      number_format($total, 2, ',', '.') }}</button>
+              </form>
+              <script src="https://js.paystack.co/v1/inline.js"></script>
               </div>
           </div>
         </div>
     </div>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script>
+        const paymentForm = document.getElementById('subForm');
+        paymentForm.addEventListener("submit", payWithPaystack, false);
+
+        function payWithPaystack(e) {
+            e.preventDefault();
+
+            let handler = PaystackPop.setup({
+                key: 'pk_test_851fecc42dfe2f708b9f6de9b5ff8c220d95dc99'
+                , email: document.getElementById("email-address").value
+                , amount: document.getElementById("amount").value * 100
+                , ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+
+                onClose: function() {
+                    alert('Window closed.');
+                }
+                , callback: function(response) {
+                    // console.log(response);
+                    let ref = response.reference;
+                    let email = $("#email-address").val();
+                    let amount = $("#amount").val();
+                    let user = $("#user-id").val();
+                    let property = $("#property-id").val();
+                    let type = $("#type").val();
+                    let _token = $("input[name=_token]").val();
+                    $.ajax({
+                        url: "{{route('inspection.verify')}}"
+                        , type: "POST"
+                        , data: {
+                            email: email
+                            , amount: amount
+                            , reference: ref
+                            , user: user
+                            , property_id: property
+                            , type: type
+                            , _token: _token
+
+                        }
+                        , success: function(res) {
+                            console.log(res);
+                            obj = JSON.parse(res);
+                            var status = obj.status;
+
+                            //    console.log(status);
+                            if (status == true) {
+                                alert("Payment Succefssful");
+                                location.reload();
+                            } else {
+                                alert("Error verifying payment");
+                                location.reload();
+                            }
+                        }
+                    })
+
+                }
+
+            });
+
+
+            handler.openIframe();
+        }
+
+    </script>
     @endsection
 </x-home.home-master>

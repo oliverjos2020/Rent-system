@@ -5,7 +5,7 @@
             <div class="card-header">
                 <h5 class="card-title mb-0">Manage Inspection</h5>
             </div>
-            <div class="card-body table-responsive">
+            <div class="card-body">
                 @if(session()->has('property-deleted'))
                 <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
                     <div class="alert-icon">
@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 @endif
-                <table id="datatables-basic" class="table table-striped table-responsive" style="width:100%">
+                <table id="datatables-basic" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                           

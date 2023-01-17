@@ -33,10 +33,10 @@ class CartController extends Controller
     //     Session::flash('cart-deleted', 'Item Removed');
     //     return back();
     // }
-
+ 
     public function view($id){
         $cart = Cart::limit(1)->get();
-        $cartitem = Cart::where('user_id', $id)->get();
+        $cartitem = Cart::where('user_id', $id)->where('payment', '0')->get();
         $total = Cart::where('user_id', $id)->sum('amount');
         return view('home.cart', ['cart'=>$cart,'cartitem'=>$cartitem,'total'=>$total]);
     }
