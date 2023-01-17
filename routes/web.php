@@ -36,6 +36,8 @@ Route::get('/dashboard/manage-inspection', [App\Http\Controllers\InspectionContr
 Route::get('/dashboard/manage-inspection/pending', [App\Http\Controllers\InspectionController::class, 'pending'])->name('dashboard.manage-inspection-pending');
 
 Route::get('/dashboard/inspection/awaiting-payment', [App\Http\Controllers\InspectionController::class, 'wishlist'])->name('dashboard.inspection-awaiting-payt');
+
+Route::put('/inspection/{inspection}/visit', [App\Http\Controllers\InspectionController::class, 'visit'])->name('dashboard.visit.update');
 });
 
 Route::middleware(['role:Admin','auth'])->group(function(){

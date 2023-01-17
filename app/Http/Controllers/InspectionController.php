@@ -26,7 +26,7 @@ class InspectionController extends Controller
         
             $inspection = Inspection::where('payment', '1')->where('visit', '0')->get();
     
-        return view('dashboard.manage-inspection', ['inspection' => $inspection]);
+        return view('dashboard.manage-inspection-pending', ['inspection' => $inspection]);
     }
 
     public function wishlist(){
@@ -53,6 +53,13 @@ class InspectionController extends Controller
 
         Session::flash('inspection-created', '');
         // return view('home.cart', ['cart'=>$cart,'cartitem'=>$cartitem,'total'=>$total]);
+        return back();
+    }
+
+    public function visit(Inspection $inspection){
+        $user = $inspection['id'];
+        Inspection::where('id', $user)->update(['visit' => '1']);
+        Session::flash('visited', 'inspection completed');
         return back();
     }
 

@@ -5,14 +5,14 @@
             <div class="card-header">
                 <h5 class="card-title mb-0">Manage Inspection</h5>
             </div>
-            <div class="card-body">
-                @if(session()->has('property-deleted'))
-                <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
+            <div class="card-body table-responsive">
+                @if(session()->has('visited'))
+                <div class="alert alert-success alert-outline-coloured alert-dismissible" role="alert">
                     <div class="alert-icon">
                         <i class="far fa-fw fa-bell"></i>
                     </div>
                     <div class="alert-message">
-                        {{session('property-deleted')}}
+                        {{session('visited')}}
                     </div>
 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -37,6 +37,11 @@
                             <th>Date Created</th>
                             <th>Date Paid</th>
                             <th>Ref id</th>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <th>Visit</th>
+                            @else
+
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -59,6 +64,18 @@
                             <td>
                                 {{$inspections->reference_id}}
                             </td>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <td>
+                                <form action="{{route('dashboard.visit.update', $inspections->id)}}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-check"></i> Done</button>
+                                </form>
+                            </td>
+                            @else
+
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
@@ -78,6 +95,11 @@
                             <th>Date Created</th>
                             <th>Date Paid</th>
                             <th>Ref id</th>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <th>Visit</th>
+                            @else
+
+                            @endif
                         </tr>
                     </tfoot>
                 </table>

@@ -20,6 +20,7 @@
                     </button>
                 </div>
                 @endif
+                <div class="table-responsive">
                 <table id="datatables-basic" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
@@ -36,6 +37,11 @@
                             <th>Date Paid</th>
                             <th>Ref id</th>
                             <th>Visit</th>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <th>Action</th>
+                            @else
+
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +63,18 @@
                                 {{$inspections->reference_id}}
                             </td>
                             <td><span class="badge rounded-pill bg-primary">{{$inspections->visit==1 ? 'Yes' : 'No'}}</span></td></td>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <td>
+                                <form action="{{route('dashboard.visit.update', $inspections->id)}}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    
+                                    <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                                </form>
+                            </td>
+                            @else
+
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
@@ -75,9 +93,15 @@
                             <th>Date Paid</th>
                             <th>Ref id</th>
                             <th>Visit</th>
+                            @if(auth()->user()->userHasRole('Admin'))
+                            <th>Action</th>
+                            @else
+
+                            @endif
                         </tr>
                     </tfoot>
                 </table>
+                </div>
         </div>
     </div>
     @endsection
