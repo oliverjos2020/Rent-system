@@ -75,6 +75,11 @@ class InspectionController extends Controller
         Session::flash('cart-deleted', 'Item Removed');
         return back();
     }
+    public function destroy(Inspection $inspection){
+        $inspection->delete();
+        Session::flash('inspection-deleted', 'Record Deleted');
+        return back();
+    }
 
     public function verify(Request $request){
         // return $request;

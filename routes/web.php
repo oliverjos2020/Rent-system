@@ -40,6 +40,8 @@ Route::get('/dashboard/inspection/awaiting-payment', [App\Http\Controllers\Inspe
 Route::put('/inspection/{inspection}/visit', [App\Http\Controllers\InspectionController::class, 'visit'])->name('dashboard.visit.update');
 });
 
+Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'destroy'])->name('inspection.destroy');
+
 Route::middleware(['role:Admin','auth'])->group(function(){
 
     Route::get('/dashboard/users', [App\Http\Controllers\UserController::class, 'show'])->name('dashboard.users');

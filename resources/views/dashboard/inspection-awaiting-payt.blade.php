@@ -6,13 +6,13 @@
                 <h5 class="card-title mb-0">Manage Inspection</h5>
             </div>
             <div class="card-body">
-                @if(session()->has('property-deleted'))
+                @if(session()->has('inspection-deleted'))
                 <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
                     <div class="alert-icon">
                         <i class="far fa-fw fa-bell"></i>
                     </div>
                     <div class="alert-message">
-                        {{session('property-deleted')}}
+                        {{session('inspection-deleted')}}
                     </div>
 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,11 +65,10 @@
                             <td><span class="badge rounded-pill bg-primary">{{$inspections->visit==1 ? 'Yes' : 'No'}}</span></td></td>
                             @if(auth()->user()->userHasRole('Admin'))
                             <td>
-                                <form action="{{route('dashboard.visit.update', $inspections->id)}}" method="post">
+                                <form action="{{route('inspection.destroy', $inspections->id)}}" method="post">
                                     @csrf
-                                    @method('PUT')
-                                    
-                                    <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
                             @else
