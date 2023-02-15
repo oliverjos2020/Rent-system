@@ -11,33 +11,33 @@ class InspectionController extends Controller
 {
 
     public function index(){
-        
+
         if(auth()->user()->userHasRole('Admin')){
             $inspection = Inspection::where('payment', '1')->where('visit', '1')->get();
         }else{
             $id = Auth()->User()->id;
             $inspection = Inspection::where('user_id', $id)->get();
         }
-       
+
         return view('dashboard.manage-inspection', ['inspection' => $inspection]);
     }
 
     public function pending(){
-        
+
             $inspection = Inspection::where('payment', '1')->where('visit', '0')->get();
-    
+
         return view('dashboard.manage-inspection-pending', ['inspection' => $inspection]);
     }
 
     public function wishlist(){
         $inspection = Inspection::where('payment', '0')->where('visit', '0')->get();
-    
+
         return view('dashboard.inspection-awaiting-payt', ['inspection' => $inspection]);
     }
 
     public function inspection(){
         $data = request()->validate([
-            'property_id' => ['required','max:15'],
+            'post_id' => ['required','max:15'],
             'payment' => ['required','max:15'],
             'amount' => ['required','max:15'],
             'visit' => ['required','max:15']
@@ -49,7 +49,7 @@ class InspectionController extends Controller
         $Inspectionitem = Inspection::where('user_id', $user)->get();
         // $total = Cart::where('user_id', $id)->sum('amount');
         // return view('home.inspection-cart', ['Inspectionitem'=>$Inspectionitem]);
-        
+
 
         Session::flash('inspection-created', '');
         // return view('home.cart', ['cart'=>$cart,'cartitem'=>$cartitem,'total'=>$total]);
@@ -75,7 +75,7 @@ class InspectionController extends Controller
         Session::flash('cart-deleted', 'Item Removed');
         return back();
     }
-    
+
     public function destroy(Inspection $inspection){
         $inspection->delete();
         Session::flash('inspection-deleted', 'Record Deleted');
@@ -85,16 +85,16 @@ class InspectionController extends Controller
     public function verify(Request $request){
         // return $request;
         if($request['type']=="inspection"){
-            
+
                 $inspection = new Inspection;
                 $skey = "sk_test_f4f498e04004fea994980a1574ad941b908fc60a";
                 $reference = $request['reference'];
                 $user = $request['user'];
-                $property = $request['property_id'];
+                $post = $request['post_id'];
                 $status = 1;
 
                 $curl = curl_init();
-        
+
             curl_setopt_array($curl, array(
                 CURLOPT_URL => "https://api.paystack.co/transaction/verify/$reference",
                 CURLOPT_RETURNTRANSFER => true,
@@ -110,29 +110,29 @@ class InspectionController extends Controller
                 "Cache-Control: no-cache",
                 ),
             ));
-        
+
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
 
                 curl_close($curl);
-                
+
                 if ($err) {
                     echo "cURL Error #:" . $err;
                 } else {
                     $obj = json_decode($response);
                     $message = $obj->message;
-                    
-                    Inspection::where('user_id', $user)->where('property_id', $property)->where('payment', '0')->update(['payment' => $status, 'payment_message' => $message, 'reference_id' => $reference]);
+
+                    Inspection::where('user_id', $user)->where('post_id', $post)->where('payment', '0')->update(['payment' => $status, 'payment_message' => $message, 'reference_id' => $reference]);
                     echo $response;
                     // return $obj->message;
                 }
-                
+
     }else if($request['type']=="cart"){
         $cart = new Cart;
         $skey = "sk_test_f4f498e04004fea994980a1574ad941b908fc60a";
         $reference = $request['reference'];
         $user = $request['user'];
-        $property = $request['property_id'];
+        $post = $request['post_id'];
         $status = 1;
 
         $curl = curl_init();
@@ -157,14 +157,14 @@ class InspectionController extends Controller
         $err = curl_error($curl);
 
         curl_close($curl);
-        
+
         if ($err) {
             echo "cURL Error #:" . $err;
         } else {
             $obj = json_decode($response);
             $message = $obj->message;
-            
-            Cart::where('user_id', $user)->where('property_id', $property)->where('payment', '0')->update(['payment' => $status, 'payment_message' => $message, 'reference_id' => $reference]);
+
+            Cart::where('user_id', $user)->where('post_id', $post)->where('payment', '0')->update(['payment' => $status, 'payment_message' => $message, 'reference_id' => $reference]);
             echo $response;
             // return $obj->message;
         }

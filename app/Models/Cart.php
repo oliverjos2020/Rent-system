@@ -23,7 +23,7 @@ class Cart extends Model
     public function user(){
         return $this->hasMany(User::class);
     }
-    public function property(){
-        return $this->belongsTo(Property::class);
+    public function post(){
+        return $this->belongsTo(post::class);
     }
 }

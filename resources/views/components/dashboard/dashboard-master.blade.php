@@ -64,15 +64,15 @@
 							<i class="align-middle mr-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboard</span>
 						</a>
 					</li>
-					
-					
+
+
 					@if(auth()->user()->userHasRole('Admin'))
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="{{route('dashboard.users')}}">
 							<i class="align-middle mr-2 far fa-fw fa-calendar-alt"></i> <span class="align-middle">Users</span>
 						</a>
 					</li>
-					<li class="sidebar-item">
+					{{-- <li class="sidebar-item">
 						<a href="#inspection" data-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle mr-2 fas fa-fw fas fa-car"></i> <span class="align-middle">Inspection</span>
 						</a>
@@ -81,7 +81,7 @@
 							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-inspection-pending')}}">Pending Inspection</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-inspection')}}">Finished Inspection</a></li>
 						</ul>
-					</li>
+					</li> --}}
 					<li class="sidebar-item">
 						<a href="#authorization" data-toggle="collapse" class="sidebar-link collapsed">
 							<i class="align-middle mr-2 fas fa-fw fas fa-cog"></i> <span class="align-middle">Authorization</span>
@@ -99,18 +99,35 @@
 							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.categories')}}">Manage Categories</a></li>
 						</ul>
 					</li>
-					<li class="sidebar-item">
+                    <li class="sidebar-item">
+						<a href="#faq" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle mr-2 fas fa-fw fa-sign-in-alt"></i> <span class="align-middle">FAQs</span>
+						</a>
+						<ul id="faq" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.faq')}}">Manage FAQs</a></li>
+						</ul>
+					</li>
+					{{-- <li class="sidebar-item">
 						<a class="sidebar-link" href="{{route('dashboard.location')}}">
 							<i class="align-middle mr-2 far fa-fw fa-calendar-alt"></i> <span class="align-middle">Location</span>
 						</a>
-					</li>
+					</li> --}}
 					<li class="sidebar-item">
-						<a href="#property" data-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle mr-2 fas fa-fw fa-sign-in-alt"></i> <span class="align-middle">Property</span>
+						<a href="#post" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle mr-2 fas fa-fw fa-sign-in-alt"></i> <span class="align-middle">Posts</span>
 						</a>
-						<ul id="property" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.create-property')}}">Create Property</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-property')}}">Manage Property</a></li>
+						<ul id="post" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.create-post')}}">Create Post</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-post')}}">Manage Post</a></li>
+						</ul>
+					</li>
+                    <li class="sidebar-item">
+						<a href="#event" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle mr-2 fas fa-fw fa-sign-in-alt"></i> <span class="align-middle">Event</span>
+						</a>
+						<ul id="event" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.create-event')}}">Create Event</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{{route('dashboard.manage-event')}}">Manage Event</a></li>
 						</ul>
 					</li>
 					@else
@@ -129,7 +146,7 @@
 							<i class="align-middle mr-2 fas fa-fw fa-user-alt"></i> <span class="align-middle">Profile</span>
 						</a>
 					</li>
-					
+
 
 					<li class="sidebar-item">
 						<form action="/logout" method="post">
@@ -304,10 +321,10 @@
 			<main class="content">
 				<div class="container-fluid">
 
-					
-					
+
+
 						@yield('content')
-					
+
 
 				</div>
 			</main>

@@ -12,8 +12,8 @@ class Inspection extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
-    } 
-    public function property(){
-        return $this->belongsTo(Property::class);
+    }
+    public function post(){
+        return $this->belongsTo(post::class);
     }
 }

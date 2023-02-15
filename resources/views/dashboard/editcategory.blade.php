@@ -43,7 +43,7 @@
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" id="name" placeholder="Name" value="{{$category->name}}" name="name">
                                     @error('name')
-                                        <div class="invalid-feedback">{{$message}}</div>                                        
+                                        <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
@@ -62,7 +62,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($categories as $category)
-                                            
+
                                         <tr>
                                             <td>{{$category->id}}</td>
                                             <td><a href="{{route('dashboard.editcategory', $category->id)}}">{{$category->name}}</a></td>
@@ -81,7 +81,7 @@
                             </div>
                         </div>
 
-                        
+
 
                 </div>
                 <div class="my-5">&nbsp;</div>
@@ -91,5 +91,4 @@
     </div>
     @endsection
     </x-dashboard.dashboard-master>
-    
-    
+

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Property;
+use App\Models\post;
 use App\Models\Photo;
 use App\Models\Category;
 use App\Models\Location;
@@ -31,33 +31,33 @@ class HomeController extends Controller
         //$user = auth()->user()->id;
         $cart = Cart::limit(1)->get();
         //$cart = Cart::where('user_id', $user)->limit(1)->get();
-        $property = Property::paginate(9);
+        $post = post::paginate(3);
         $category = Category::all();
         $location = Location::all();
-        
-        return view('home', ['property'=>$property, 'category'=>$category, 'location'=>$location,'cart'=>$cart]);
+
+        return view('home', ['post'=>$post, 'category'=>$category, 'location'=>$location,'cart'=>$cart]);
     }
 
     public function listing(){
         $cart = Cart::limit(1)->get();
-        $property = Property::paginate(6);
+        $post = post::paginate(6);
         $category = Category::all();
         $location = Location::all();
-        return view('home.listing', ['property'=>$property, 'category'=>$category, 'location'=>$location,'cart'=>$cart]);
+        return view('home.listing', ['post'=>$post, 'category'=>$category, 'location'=>$location,'cart'=>$cart]);
     }
 
     public function view($id){
         $user = Auth()->user()->id;
         $cart = Cart::where('user_id', $user)->get();
-        $property = Property::findOrFail($id);
-        $photo = Photo::where('property_id', $id)->get();
-        $cartbtn = Cart::where('property_id', $id)->where('user_id', $user)->limit(1)->get();
-        $inspectionbtn = Inspection::where('property_id', $id)->where('user_id', $user)->where('payment', '0')->limit(1)->get(); 
+        $post = post::findOrFail($id);
+        $photo = Photo::where('post_id', $id)->get();
+        $cartbtn = Cart::where('post_id', $id)->where('user_id', $user)->limit(1)->get();
+        $inspectionbtn = Inspection::where('post_id', $id)->where('user_id', $user)->where('payment', '0')->limit(1)->get();
         $category = Category::all();
         $location = Location::all();
         return view('home.single', [
             'photo'=>$photo,
-            'property'=>$property, 
+            'post'=>$post,
             'category'=>$category,
             'cart'=>$cart,
             'cartbtn'=>$cartbtn,
@@ -68,12 +68,12 @@ class HomeController extends Controller
 
     public function sort($id){
         $cart = Cart::limit(1)->get();
-        $property = Property::where('category_id', $id)->paginate(12);
+        $post = post::where('category_id', $id)->paginate(12);
         $categoryname = Category::findOrFail($id);
         $category = Category::all();
         $location = Location::all();
         return view('home.sort-category', [
-            'property'=>$property,
+            'post'=>$post,
             'categoryname'=>$categoryname,
             'cart'=>$cart,
             'category'=>$category,
@@ -83,12 +83,12 @@ class HomeController extends Controller
 
     public function location($id){
         $cart = Cart::limit(1)->get();
-        $property = Property::where('location_id', $id)->paginate(12);
+        $post = post::where('location_id', $id)->paginate(12);
         $title = Location::findOrFail($id);
         $category = Category::all();
         $location = Location::all();
         return view('home.location', [
-            'property'=>$property,
+            'post'=>$post,
             'title'=>$title,
             'cart'=>$cart,
             'category'=>$category,

@@ -6,11 +6,19 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/listing', [App\Http\Controllers\HomeController::class, 'listing'])->name('home.listing');
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/participate', function () {
+    return view('dashboard.register');
+});
 
 
+//INSTRUCTOR
+Route::post('/dashboard/subscribe', [App\Http\Controllers\InstructorController::class, 'create'])->name('dashboard.instructor.store');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/listing/{id}/property', [App\Http\Controllers\HomeController::class, 'view'])->name('home.single');
+    Route::get('/listing/{id}/post', [App\Http\Controllers\HomeController::class, 'view'])->name('home.single');
     Route::get('/listing/{id}/sort', [App\Http\Controllers\HomeController::class, 'sort'])->name('home.sort');
     Route::get('/location/{id}', [App\Http\Controllers\HomeController::class, 'location'])->name('home.location');
 
@@ -29,7 +37,8 @@ Route::post('/cart/inspection', [App\Http\Controllers\InspectionController::clas
 Route::delete('/cart/{cart}/destroy', [App\Http\Controllers\CartController::class, 'delete'])->name('cart.destroy');
 Route::delete('/cart/{cart}/remove', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart/{id}/shopping-cart', [App\Http\Controllers\CartController::class, 'view'])->name('cart.view');
-Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\InspectionController::class, 'view'])->name('inspection.view');
+Route::get('/inspection-cart/{id}/shopping-cart', [App\Http\Controllers\InspectionController::class, 'view'])->name('inspection.v
+iew');
 Route::delete('/inspection/{inspection}/destroy', [App\Http\Controllers\InspectionController::class, 'delete'])->name('inspection.destroy');
 Route::post('/verify-payment', [App\Http\Controllers\InspectionController::class, 'verify'])->name('inspection.verify');
 Route::get('/dashboard/manage-inspection', [App\Http\Controllers\InspectionController::class, 'index'])->name('dashboard.manage-inspection');
@@ -56,12 +65,12 @@ Route::middleware(['role:Admin','auth'])->group(function(){
     Route::put('/dashboard/{location}/location/update', [App\Http\Controllers\LocationController::class, 'update'])->name('dashboard.updatelocation');
     Route::delete('/dashboard/{location}/location/destroy', [App\Http\Controllers\LocationController::class, 'delete'])->name('dashboard.location.destroy');
 
-    Route::get('/dashboard/create-property', [App\Http\Controllers\PropertyController::class, 'create'])->name('dashboard.create-property');
-    Route::post('/dashboard/property/store', [App\Http\Controllers\PropertyController::class, 'store'])->name('dashboard.property.store');
-    Route::get('/dashboard/manage-property', [App\Http\Controllers\PropertyController::class, 'show'])->name('dashboard.manage-property');
-    Route::get('/dashboard/{id}/edit', [App\Http\Controllers\PropertyController::class, 'edit'])->name('dashboard.edit-property');
-    Route::put('/dashboard/{id}/property/update', [App\Http\Controllers\PropertyController::class, 'update'])->name('dashboard.property.update');
-    Route::delete('/dashboard/{id}/property/destroy', [App\Http\Controllers\PropertyController::class, 'destroy'])->name('dashboard.property.destroy');
+    Route::get('/dashboard/create-post', [App\Http\Controllers\PostController::class, 'create'])->name('dashboard.create-post');
+    Route::post('/dashboard/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('dashboard.post.store');
+    Route::get('/dashboard/manage-post', [App\Http\Controllers\PostController::class, 'show'])->name('dashboard.manage-post');
+    Route::get('/dashboard/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('dashboard.edit-post');
+    Route::put('/dashboard/{id}/post/update', [App\Http\Controllers\PostController::class, 'update'])->name('dashboard.post.update');
+    Route::delete('/dashboard/{id}/post/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('dashboard.post.destroy');
 
 
     //Route::get('/dashboard/{user}/users', [App\Http\Controllers\UserController::class, 'edit'])->name('dashboard.edit');
@@ -80,9 +89,27 @@ Route::middleware(['role:Admin','auth'])->group(function(){
     Route::put('/role/{role}/update', [App\Http\Controllers\RoleController::class, 'update'])->name('dashboard.role.update');
     Route::delete('/role/{role}/destroy', [App\Http\Controllers\RoleController::class, 'delete'])->name('dashboard.role.destroy');
 
+    //FAQs
+    Route::get('dashboard/faq', [App\Http\Controllers\FaqController::class, 'index'])->name('dashboard.faq');
+    Route::post('/faq/store', [App\Http\Controllers\FaqController::class, 'store'])->name('faq.store');
+    Route::get('/faq/{faq}/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('dashboard.editfaq');
+    Route::put('/faq/{faq}/update', [App\Http\Controllers\FaqController::class, 'update'])->name('dashboard.faq.update');
+    Route::delete('/faq/{faq}/destroy', [App\Http\Controllers\FaqController::class, 'delete'])->name('dashboard.faq.destroy');
+
+    //EVENTS
+    Route::get('/dashboard/create-event', [App\Http\Controllers\EventController::class, 'create'])->name('dashboard.create-event');
+    Route::post('/dashboard/event/store', [App\Http\Controllers\EventController::class, 'store'])->name('dashboard.event.store');
+    Route::get('/dashboard/manage-event', [App\Http\Controllers\EventController::class, 'show'])->name('dashboard.manage-event');
+    Route::get('/dashboard/{event}/edit-event', [App\Http\Controllers\EventController::class, 'edit'])->name('dashboard.edit-event');
+    Route::put('/dashboard/{id}/event/update', [App\Http\Controllers\EventController::class, 'update'])->name('dashboard.event.update');
+    Route::delete('/dashboard/{id}/event/destroy', [App\Http\Controllers\EventController::class, 'destroy'])->name('dashboard.event.destroy');
+
+    
+
 });
 
 Route::middleware(['auth', 'can:view,user'])->group(function(){
 
     Route::get('/dashboard/{user}/profile', [App\Http\Controllers\DashboardController::class, 'show'])->name('dashboard.profile');
+
 });

@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function create(){
         $data = request()->validate([
-            'property_id' => ['required','max:15'],
+            'post_id' => ['required','max:15'],
             'payment' => ['required','max:15'],
             'amount' => ['required','max:15'],
         ]);
@@ -21,7 +21,7 @@ class CartController extends Controller
 
     }
 
-    
+
 
     public function delete(Cart $cart){
         $cart->delete();
@@ -33,7 +33,7 @@ class CartController extends Controller
     //     Session::flash('cart-deleted', 'Item Removed');
     //     return back();
     // }
- 
+
     public function view($id){
         $cart = Cart::limit(1)->get();
         $cartitem = Cart::where('user_id', $id)->where('payment', '0')->get();

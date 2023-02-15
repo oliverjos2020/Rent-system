@@ -16,7 +16,7 @@ class CreateInspectionsTable extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unsigned()->index();
-            $table->foreignId('property_id')->unsigned()->index();
+            $table->foreignId('post_id')->unsigned()->index();
             $table->integer('amount');
             $table->integer('payment');
             $table->timestamps();

@@ -11,8 +11,8 @@ class Photo extends Model
 
     protected $guarded = [];
 
-    // public function property(){
-    //     return $this->belongsTo(Property::class);
+    // public function post(){
+    //     return $this->belongsTo(post::class);
     // }
     public $directory = "/images/";
 
@@ -24,7 +24,7 @@ class Photo extends Model
         //return asset('storage/app/' . $value);
         }
 
-        public function property(){
-            return $this->belongsTO(Property::class);
+        public function post(){
+            return $this->belongsTO(post::class);
         }
 }

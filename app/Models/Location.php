@@ -11,7 +11,7 @@ class Location extends Model
 
     protected $fillable = ['name'];
 
-    public function property(){
-        return $this->belongsTo(Property::class);
+    public function post(){
+        return $this->belongsTo(post::class);
     }
 }

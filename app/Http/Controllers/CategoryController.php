@@ -28,7 +28,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category){
         return view('dashboard.editcategory', [
-            'category' => $category, 
+            'category' => $category,
             'categories' => Category::all()
         ]);
     }
@@ -40,7 +40,7 @@ class CategoryController extends Controller
             Session::flash('category-updated', 'Category Updated to ->'.request()->name);
             $category->save();
         }else{
-            Session::flash('category-updated', 'Nothing has been update');
+            Session::flash('category-updated', 'Nothing has been updated');
         }
         return back();
     }
