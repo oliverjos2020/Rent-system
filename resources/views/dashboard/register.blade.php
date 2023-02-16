@@ -18,19 +18,22 @@
                 </div>
                 <div class="row">
 
-
-
                     <div class="col-12">
-                        <form id="smartwizard-validation" class="wizard wizard-primary" action="javascript:void(0)">
-                            <ul class="nav">
+                        <form id=""  class="wizard wizard-primary" action="javascript:void(0)">
+                            {{-- <ul class="nav">
                                 <li class="nav-item"><a class="nav-link" href="#validation-step-1">INFORMATION<br /><small>Bio Data</small></a></li>
                                 <li class="nav-item"><a class="nav-link" href="#validation-step-2">Address<br /><small>Bio Data</small></a></li>
                                 <li class="nav-item"><a class="nav-link" href="#validation-step-3">Third Step<br /><small>Step description</small></a></li>
-                                {{-- <li class="nav-item"><a class="nav-link" href="#validation-step-4">SUMMARY<br /><small>Confirm Information</small></a></li> --}}
-                            </ul>
+                                {{-- <li class="nav-item"><a class="nav-link" href="#validation-step-4">SUMMARY<br /><small>Confirm Information</small></a></li> 
+                            </ul> --}}
 
-                            <div class="tab-content">
-                                <div id="validation-step-1" class="tab-pane" role="tabpanel">
+                            <div class="tab-content container-fluid p-4">
+                                <div id="selfservice_stage" class="progress thin">
+                                    <div id="selfservice_stage_progressbar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                    </div>
+                                </div>
+                                <div id="step-1" class="mt-4">
+                                    <h3>INFORMATION BIO-DATA</h3>
                                     <div class="form-group">
                                         Registration Type <span class="text-danger">*</span>
                                         <div class="custom-controls-stacked mt-3">
@@ -49,9 +52,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div id="sponsor-amount">
-                                        
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label class="form-label">Email Address
                                             <span class="text-danger">*</span>
@@ -80,8 +81,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="sponsor-amount">
+                                        
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary btn-block" onclick="next()">Next</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+
+                                        </div>
+                                    </div>
+                                    
                                 </div>
-                                <div id="validation-step-2" class="tab-pane" role="tabpanel">
+                                <div id="step-2" class="d-none mt-4">
+                                    <h3>ADDRESS</h3>
                                     <div class="form-group">
                                         <label class="form-label">Address 1
                                             <span class="text-danger">*</span>
@@ -151,68 +167,102 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary btn-block" onclick="next1()">Next</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
 
-
+                                        </div>
+                                    </div>
 
                                 </div>
-                                <div id="validation-step-3" class="tab-pane" role="tabpanel">
+                                <div id="step-3" class="d-none mt-4">
+                                    <h3>REVIEW</h3>
                                     <div id="response">
                                     <div class="form-group">
                                         How did you hear about us? <span class="text-danger">*</span>
                                         <div class="custom-controls-stacked mt-3">
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Event Website">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Event Website">
                                                 <span class="custom-control-label">Event Website</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Family/Friend">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Family/Friend">
                                                 <span class="custom-control-label">Family/Friend</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Employer/Colleague">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Employer/Colleague">
                                                 <span class="custom-control-label">Employer/Colleague</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Online Advertisement">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Online Advertisement">
                                                 <span class="custom-control-label">Online Advertisement</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Press Release/Media">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Press Release/Media">
                                                 <span class="custom-control-label">Press Release/Media</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Publication or Advertisement">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Publication or Advertisement">
                                                 <span class="custom-control-label">Publication or Advertisement</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Social Media">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Social Media">
                                                 <span class="custom-control-label">Social Media</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Direct Mail">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Direct Mail">
                                                 <span class="custom-control-label">Direct Mail</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Email">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Email">
                                                 <span class="custom-control-label">Email</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Word of mouth">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Word of mouth">
                                                 <span class="custom-control-label">Word of mouth</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Past Attendee">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Past Attendee">
                                                 <span class="custom-control-label">Past Attendee</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Web Search">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Web Search">
                                                 <span class="custom-control-label">Web Search</span>
                                             </label>
                                             <label class="custom-control custom-radio">
-                                                <input name="how_did_you_hear" id="how_did_you_hear" required type="radio" class="custom-control-input" value="Other">
+                                                <input  id="how_did_you_hear" required type="radio" class="custom-control-input" value="Other">
                                                 <span class="custom-control-label">Other</span>
                                             </label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-block" onclick="next2()">Next</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+
+                                    </div>
+                                </div>
+                                <div id="step-4" class="d-none mt-4">
+                                    <h3>REVIEW</h3>
+                                    <div id="response">
+                                    
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary btn-block" onclick="next3()">Next</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+
                                     </div>
                                 </div>
                                     {{-- <div class="form-group">
@@ -225,6 +275,7 @@
                                
                             </div>
                         </form>
+                        <script src="https://js.paystack.co/v1/inline.js"></script>
                     </div>
                 </div>
 
